@@ -1,125 +1,153 @@
 <template>
-  <div>
-    <div class="register-page">
-      <div class="register-box">
-        <div class="register-logo">
-          <a href="../../index2.html"><b>Admin</b>LTE</a>
-        </div>
+  <main>
+    <div class="container">
+      <section
+        class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div
+              class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center"
+            >
+              <div class="d-flex justify-content-center py-4">
+                <a
+                  href="index.html"
+                  class="logo d-flex align-items-center w-auto"
+                >
+                  <img src="assets/img/logo.png" alt="" />
+                  <span class="d-none d-lg-block">NiceAdmin</span>
+                </a>
+              </div>
+              <!-- End Logo -->
 
-        <div class="card">
-          <div class="card-body register-card-body">
-            <p class="login-box-msg">Register a new membership</p>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">
+                      Create an Account
+                    </h5>
+                    <p class="text-center small">
+                      Enter your personal details to create account
+                    </p>
+                  </div>
 
-            <form action="../../index.html" method="post">
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Full name"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-user"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="email" class="form-control" placeholder="Email" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="number" class="form-control" placeholder="Phone" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Address" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Retype password"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-8">
-                  <div class="icheck-primary">
-                    <input
-                      type="checkbox"
-                      id="agreeTerms"
-                      name="terms"
-                      value="agree"
-                    />
-                    <label for="agreeTerms">
-                      I agree to the <a href="#">terms</a>
-                    </label>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-4">
-                  <button type="submit" class="btn btn-primary btn-block">
-                    Register
-                  </button>
-                </div>
-                <!-- /.col -->
-              </div>
-            </form>
+                  <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Your Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        id="yourName"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please, enter your name!
+                      </div>
+                    </div>
 
-            <!-- <div class="social-auth-links text-center">
-              <p>- OR -</p>
-              <a href="#" class="btn btn-block btn-primary">
-                <i class="fab fa-facebook mr-2"></i>
-                Sign up using Facebook
-              </a>
-              <a href="#" class="btn btn-block btn-danger">
-                <i class="fab fa-google-plus mr-2"></i>
-                Sign up using Google+
-              </a>
-            </div> -->
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label"
+                        >Your Email</label
+                      >
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        id="yourEmail"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please enter a valid Email adddress!
+                      </div>
+                    </div>
 
-            <router-link to="/login">
-              <a href="login.html" class="text-center"
-                >I already have a membership</a
-              >
-            </router-link>
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label"
+                        >Username</label
+                      >
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"
+                          >@</span
+                        >
+                        <input
+                          type="text"
+                          name="username"
+                          class="form-control"
+                          id="yourUsername"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          Please choose a username.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label"
+                        >Password</label
+                      >
+                      <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        id="yourPassword"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please enter your password!
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          name="terms"
+                          type="checkbox"
+                          value=""
+                          id="acceptTerms"
+                          required
+                        />
+                        <label class="form-check-label" for="acceptTerms"
+                          >I agree and accept the
+                          <a href="#">terms and conditions</a></label
+                        >
+                        <div class="invalid-feedback">
+                          You must agree before submitting.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">
+                        Create Account
+                      </button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">
+                        Already have an account?
+                        <a href="pages-login.html">Log in</a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                Designed by
+                <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              </div>
+            </div>
           </div>
-          <!-- /.form-box -->
         </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.register-box -->
+      </section>
     </div>
-  </div>
+  </main>
+  <!-- End #main -->
 </template>
 
 <script>
