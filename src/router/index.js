@@ -1,9 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
+import Login from '../views/AuthPage/Login.vue'
+import Register from '../views/AuthPage/Register.vue'
 
 
 const routes = [
+  {
+    path: '/',
+    name: 'deshboard',
+    component: () => import('../views/Deshboard.vue')
+  },
   {
     path: '/login',
     name: 'Login',
@@ -13,7 +18,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
-  }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../views/UserPages/Profile.vue')
+  },
 ]
 
 const router = createRouter({
