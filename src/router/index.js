@@ -24,6 +24,7 @@ const routes = [
     name: 'Profile',
     component: () => import('../views/UserPages/Profile.vue')
   },
+
 ]
 
 const router = createRouter({

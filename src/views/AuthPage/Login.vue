@@ -91,7 +91,9 @@
                     <div class="col-12">
                       <p class="small mb-0">
                         Don't have account?
-                        <a href="pages-register.html">Create an account</a>
+                        <router-link to="/register">
+                          <a>Create an account</a></router-link
+                        >
                       </p>
                     </div>
                   </form>
