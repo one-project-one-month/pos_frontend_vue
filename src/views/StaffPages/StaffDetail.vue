@@ -4,8 +4,12 @@
       <h1>Staff Deatil</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Staff</li>
+          <li class="breadcrumb-item">
+            <router-link to="/">Home</router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/staff">Staff</router-link>
+          </li>
           <li class="breadcrumb-item active">Detail</li>
         </ol>
       </nav>
@@ -19,7 +23,25 @@
         <section class="offset-3 col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Staff Deatil</h5>
+              <div class="row pt-2 ps-2">
+                <h5 class="card-title col-4">Staff Deatil</h5>
+                <div class="col-8 pt-2">
+                  <div
+                    v-if="showSuccess"
+                    class="alert alert-success alert-dismissible fade show col-12"
+                    role="alert"
+                  >
+                    <strong>Update Successful</strong>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                      @click="showSuccess = false"
+                    ></button>
+                  </div>
+                </div>
+              </div>
 
               <!-- Vertical Form -->
               <form id="form" class="row g-3" @submit="getData">
@@ -120,7 +142,7 @@
                     <button
                       type="submit"
                       v-if="!isdisable"
-                      class="col-12 btn btn-primary"
+                      class="col-12 btn btn-success"
                     >
                       Save
                     </button>
@@ -164,10 +186,11 @@ export default {
       staffInfo: {},
       isdisable: true,
       message: "",
+      showSuccess: false,
     };
   },
   methods: {
-    getData: (e) => {
+    getData(e) {
       e.preventDefault();
       const StaffData = {
         staffId: "",
@@ -193,19 +216,15 @@ export default {
           StaffData
         )
         .then((response) => {
-          console.log("Staff data updated:", response.data);
-          console.log(response.data.message);
           this.message = response.data.message;
         })
         .catch((error) => {
           console.error("Error updating staff data:", error);
         });
+      this.isdisable = !this.isdisable;
+      this.showSuccess = true;
     },
-    staffPage() {
-      this.$router.push({
-        path: "/staff",
-      });
-    },
+
     isDisable() {
       this.isdisable = !this.isdisable;
     },

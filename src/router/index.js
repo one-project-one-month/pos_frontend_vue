@@ -34,7 +34,16 @@ const routes = [
     name: 'StaffDetail',
     component: () => import('../views/StaffPages/StaffDetail.vue')
   },
-
+  {
+    path: '/staff/create',
+    name: 'StaffCreate',
+    component: () => import('../views/StaffPages/StaffCreate.vue')
+  },
+  {
+    path: '/prouct-category',
+    name: 'ProductCategory',
+    component: () => import('../views/CategoryPages/CategoryTable.vue')
+  },
 
 ]
 

@@ -4,7 +4,9 @@
       <h1>Data Tables</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">
+            <router-link to="/">Home</router-link>
+          </li>
           <li class="breadcrumb-item">Tables</li>
           <li class="breadcrumb-item active">Data</li>
         </ol>
@@ -30,7 +32,11 @@
                       Date Of Birth
                     </th>
                     <th>Mobiel Number</th>
-                    <th></th>
+                    <th>
+                      <button @click="createStaffRoute" class="btn btn-success">
+                        Add Staff | <i class="fa-solid fa-user-plus"></i>
+                      </button>
+                    </th>
                   </tr>
                 </thead>
                 <tbody v-if="staffs.length != 0">
@@ -41,16 +47,18 @@
                     <td>{{ staff.DateOfBirth }}</td>
                     <td>{{ staff.MobileNo }}</td>
                     <td>
-                      <button class="me-2 btn btn-warning">
-                        <i class="fa-solid fa-user-pen"></i>
-                      </button>
                       <button
                         @click="staffDetail(staff.StaffId)"
                         class="me-2 btn btn-primary"
                       >
+                        <i class="fa-solid fa-user-pen"></i> |
                         <i class="fa-solid fa-eye"></i>
                       </button>
-                      <button class="btn btn-danger">
+
+                      <button
+                        @click="staffDelete(staff.StaffId)"
+                        class="btn btn-danger"
+                      >
                         <i class="fa-solid fa-user-minus"></i>
                       </button>
                     </td>
@@ -92,6 +100,22 @@ export default {
           staffId: id,
         },
       });
+    },
+    staffDelete(id) {
+      let postIdToDelete = id;
+      axios
+        .delete(`http://127.0.0.1:8000/api/staff/${postIdToDelete}`)
+        .then((response) => {
+          axios.get("http://127.0.0.1:8000/api/staff").then((response) => {
+            this.staffs = response.data.data;
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    createStaffRoute() {
+      this.$router.push("/staff/create");
     },
   },
   mounted() {
