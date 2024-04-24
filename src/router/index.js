@@ -24,6 +24,17 @@ const routes = [
     name: 'Profile',
     component: () => import('../views/UserPages/Profile.vue')
   },
+  {
+    path: '/staff',
+    name: 'Staff',
+    component: () => import('../views/StaffPages/StaffTable.vue')
+  },
+  {
+    path: '/staff/detail',
+    name: 'StaffDetail',
+    component: () => import('../views/StaffPages/StaffDetail.vue')
+  },
+
 
 ]
 
@@ -31,5 +42,31 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = checkAuthentication();
+  if (to.path === '/login' || to.path === '/register') {
+    if (isAuthenticated) {
+      next('/')
+    } else {
+      next();
+    }
+  } else {
+    if (isAuthenticated) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+});
+
+let checkAuthentication = () => {
+  let isLoggedIn = localStorage.getItem('token');
+  if (isLoggedIn !== null) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 export default router

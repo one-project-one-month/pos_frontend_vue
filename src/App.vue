@@ -1,4 +1,8 @@
-<script setup></script>
 <template>
   <RouterView />
 </template>
+<script>
+export default {
+  name: "App",
+};
+</script>

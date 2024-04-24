@@ -810,7 +810,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Deshboard",
+  data() {
+    return {
+      auth: false,
+    };
+  },
+  methods: {
+    authMiddleware() {
+      if (!auth) {
+        console.log("hit ");
+        this.$router.push("/login");
+      }
+    },
+    mounted() {
+      console.log("hit");
+      this.authMiddleware();
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped></style>
