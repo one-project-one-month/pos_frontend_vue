@@ -74,7 +74,7 @@ let checkAuthentication = () => {
   if (isLoggedIn !== null) {
     return false;
   } else {
-    return true;
+    return false;
   }
 }
 

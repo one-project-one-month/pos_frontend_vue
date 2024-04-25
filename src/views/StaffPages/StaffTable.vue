@@ -106,9 +106,7 @@ export default {
       axios
         .delete(`http://127.0.0.1:8000/api/staff/${postIdToDelete}`)
         .then((response) => {
-          axios.get("http://127.0.0.1:8000/api/staff").then((response) => {
-            this.staffs = response.data.data;
-          });
+          this.getStaff();
         })
         .catch((error) => {
           console.error(error);
