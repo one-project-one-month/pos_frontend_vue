@@ -1,5 +1,4 @@
 <template>
-  <main id="main" class="main">
     <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
@@ -510,7 +509,6 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
         </div>
       </div>
     </section>
-  </main>
   <!-- End #main -->
 </template>
 

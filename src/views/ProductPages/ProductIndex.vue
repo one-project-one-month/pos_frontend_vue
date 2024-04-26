@@ -1,29 +1,40 @@
 <template>
-    <main class="main" id="main">
-        <div v-if="loading.main || loading.error" class="mainLoaderContainer">
-            <div class="mainLoader"></div>
-        </div>
-        <template v-else>
-            <div class="cardContainer">
-                <div v-for="(item) in products" :key="item.ProductId" class="card" style="width: 18rem">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.ProductName }}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">
-                            {{ categories.find(catego => catego.ProductCategoryId === item.ProductCategoryId).ProductCategoryName }}
-                        </h6>
-                        <p class="card-text">
-                            Price : <span class="fw-bold">{{ item.Price }}</span> MMK
-                        </p>
-                        <p class="card-text">
-                            Product Code : <span class="fw-bold">{{ item.ProductCode }}</span> 
-                        </p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
+    <div v-if="loading.main || loading.error" class="mainLoaderContainer">
+        <div class="mainLoader"></div>
+    </div>
+    <template v-else>
+        <div class="cardContainer">
+            <div
+                v-for="item in products"
+                :key="item.ProductId"
+                class="card"
+                style="width: 18rem"
+            >
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.ProductName }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        {{
+                            categories.find(
+                                (catego) =>
+                                    catego.ProductCategoryId ===
+                                    item.ProductCategoryId
+                            ).ProductCategoryName
+                        }}
+                    </h6>
+                    <p class="card-text">
+                        Price :
+                        <span class="fw-bold">{{ item.Price }}</span> MMK
+                    </p>
+                    <p class="card-text">
+                        Product Code :
+                        <span class="fw-bold">{{ item.ProductCode }}</span>
+                    </p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
-        </template>
-    </main>
+        </div>
+    </template>
 </template>
 
 <script src="./ProductIndex.js"></script>

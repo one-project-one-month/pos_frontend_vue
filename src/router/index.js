@@ -1,33 +1,55 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/AuthPage/Login.vue";
 import Register from "../views/AuthPage/Register.vue";
+import Empty from "../components/Empty.vue";
+import Deshboard from "../views/Deshboard.vue";
 
 const routes = [
     {
-        path: "/",
-        name: "deshboard",
-        component: () => import("../views/Deshboard.vue"),
-    },
-    {
         path: "/login",
         name: "Login",
-        component: Login,
+        components: {
+            default : Login, 
+            Header : () => import("../components/Empty.vue"), 
+            SideBar : () => import("../components/Empty.vue")
+        },
     },
     {
         path: "/register",
         name: "Register",
-        component: Register,
+        components: {
+            default : Register, 
+            Header : () => import("../components/Empty.vue"), 
+            SideBar : () => import("../components/Empty.vue")
+        },
+    },
+    {
+        path: "/",
+        name: "deshboard",
+        components: {
+            default : Deshboard,
+            Header : () => import("../components/Header.vue"), 
+            SideBar : () => import("../components/SideBar.vue")
+        },
     },
     {
         path: "/profile",
         name: "Profile",
-        component: () => import("../views/UserPages/Profile.vue"),
+        components: {
+            default : () => import("../views/UserPages/Profile.vue"),
+            Header : () => import("../components/Header.vue"), 
+            SideBar : () => import("../components/SideBar.vue")
+        },
     },
 
     {
         path: "/product", 
         name: "Product", 
-        component: () => import('../views/ProductPages/ProductIndex.vue')
+        components: {
+            default : () => import("../views/ProductPages/ProductIndex.vue"),
+            Header : () => import("../components/Header.vue"), 
+            SideBar : () => import("../components/SideBar.vue")
+        },
     }
 ];
 
