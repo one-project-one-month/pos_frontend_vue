@@ -23,6 +23,12 @@ const routes = [
         name: "Profile",
         component: () => import("../views/UserPages/Profile.vue"),
     },
+
+    {
+        path: "/product", 
+        name: "Product", 
+        component: () => import('../views/ProductPages/ProductIndex.vue')
+    }
 ];
 
 let checkAuthentication = () => {
