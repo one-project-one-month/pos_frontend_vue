@@ -1,5 +1,4 @@
 <template>
-  <main id="main" class="main">
     <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
@@ -805,12 +804,15 @@
         <!-- End Right side columns -->
       </div>
     </section>
-  </main>
+
   <!-- End #main -->
 </template>
 
 <script>
-export default {};
+
+export default {
+  name : "Deshboard"
+};
 </script>
 
 <style lang="stylus" scoped></style>
