@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "update": "git pull upstream main",
+    "_update": "git remote add upstream https://github.com/sannlynnhtun-coding/pos_backend_laravel.git"
   },
   "dependencies": {
     "axios": "^1.6.8",
