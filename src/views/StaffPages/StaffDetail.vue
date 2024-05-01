@@ -187,6 +187,10 @@ export default {
       isdisable: true,
       message: "",
       showSuccess: false,
+      loading: {
+        main: false,
+        error: false,
+      },
     };
   },
   methods: {
@@ -232,9 +236,17 @@ export default {
       this.isdisable = !this.isdisable;
       this.staffDetail();
     },
-    staffDetail() {
-      axios
-        .get(`http://127.0.0.1:8000/api/staff/${this.StaffID}`)
+    async staffDetail() {
+      axios;
+      const token = localStorage.getItem("token");
+      this.loading.main = true;
+      this.loading.error = false;
+      await axios
+        .get(`${apiPrefix}/v1/staff/${this.StaffID}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((response) => {
           this.staffInfo = response.data.data;
         });

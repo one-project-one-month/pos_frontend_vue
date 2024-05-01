@@ -9,48 +9,66 @@ const routes = [
         path: "/login",
         name: "Login",
         components: {
-            default : Login, 
-            Header : () => import("../components/Empty.vue"), 
-            SideBar : () => import("../components/Empty.vue")
+            default: Login,
+            Header: () => import("../components/Empty.vue"),
+            SideBar: () => import("../components/Empty.vue"),
+            Footer: () => import("../components/Empty.vue")
         },
     },
     {
         path: "/register",
         name: "Register",
         components: {
-            default : Register, 
-            Header : () => import("../components/Empty.vue"), 
-            SideBar : () => import("../components/Empty.vue")
+            default: Register,
+            Header: () => import("../components/Empty.vue"),
+            SideBar: () => import("../components/Empty.vue"),
+            Footer: () => import("../components/Empty.vue")
         },
     },
     {
         path: "/",
         name: "deshboard",
         components: {
-            default : Deshboard,
-            Header : () => import("../components/Header.vue"), 
-            SideBar : () => import("../components/SideBar.vue")
+            default: Deshboard,
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue"),
         },
     },
     {
         path: "/profile",
         name: "Profile",
         components: {
-            default : () => import("../views/UserPages/Profile.vue"),
-            Header : () => import("../components/Header.vue"), 
-            SideBar : () => import("../components/SideBar.vue")
+            default: () => import("../views/UserPages/Profile.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
         },
     },
 
     {
-        path: "/product", 
-        name: "Product", 
+        path: "/product",
+        name: "Product",
         components: {
-            default : () => import("../views/ProductPages/ProductIndex.vue"),
-            Header : () => import("../components/Header.vue"), 
-            SideBar : () => import("../components/SideBar.vue")
+            default: () => import("../views/ProductPages/ProductIndex.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
+        },
+    },
+
+    {
+        path: "/staff",
+        name: "Staff",
+        components: {
+            default: () => import("../views/StaffPages/StaffTable.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
         },
     }
+
+
 ];
 
 let checkAuthentication = () => {

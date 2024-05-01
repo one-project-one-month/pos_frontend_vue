@@ -1,5 +1,5 @@
 <template>
-  <main id="main" class="main">
+  <main id="main col-12" class="main">
     <div class="pagetitle">
       <h1>Data Tables</h1>
       <nav>
@@ -16,7 +16,7 @@
 
     <section class="section">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-12">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Staff Datatables</h5>
@@ -79,19 +79,38 @@
 import axios from "axios";
 import { useStaffStore } from "@/stores/staff";
 import router from "@/router";
+import apiPrefix from "@/apiPrefix";
 const staffStore = useStaffStore();
 export default {
   name: "StaffTable",
   data() {
     return {
       staffs: [],
+      loading: {
+        main: false,
+        error: false,
+      },
     };
   },
   methods: {
-    getStaff() {
-      axios.get("http://127.0.0.1:8000/api/staff").then((response) => {
-        this.staffs = response.data.data;
-      });
+    async getStaff() {
+      const token = localStorage.getItem("token");
+      this.loading.main = true;
+      this.loading.error = false;
+      await axios
+        .get(`${apiPrefix}/v1/staff`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.staffs = response.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading.error = true;
+          return;
+        });
     },
     staffDetail(id) {
       this.$router.push({
@@ -104,7 +123,7 @@ export default {
     staffDelete(id) {
       let postIdToDelete = id;
       axios
-        .delete(`http://127.0.0.1:8000/api/staff/${postIdToDelete}`)
+        .delete(`${apiPrefix}/v1/staff/${postIdToDelete}`)
         .then((response) => {
           this.getStaff();
         })
