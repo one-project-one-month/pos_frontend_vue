@@ -1,67 +1,71 @@
 <template>
-  <!-- ======= Sidebar ======= -->
+    <!-- ======= Sidebar ======= -->
 
-  <Teleport to="#sideBarPortal">
-    <aside id="sidebar" class="sidebar" :style="style">
-      <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
-          </router-link>
-        </li>
+    <Teleport to="#sideBarPortal">
+        <aside id="sidebar" class="sidebar" :style="style">
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <SideBarLinkVue path="/">Dashboard</SideBarLinkVue>
 
-        <li class="nav-heading">Pages</li>
+                <li class="nav-heading">Pages</li>
 
-        <li class="nav-item">
-          <router-link to="/product">
-            <a class="nav-link collapsed">
-              <i class="fa-solid fa-store"></i>
-              <span>Stores</span>
-            </a>
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/staff">
-            <a class="nav-link collapsed">
-              <i class="fa-solid fa-store"></i>
-              <span>Stores</span>
-            </a>
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/product">
-            <a class="nav-link collapsed">
-              <i class="fa-solid fa-store"></i>
-              <span>Stores</span>
-            </a>
-          </router-link>
-        </li>
-        <!-- End Profile Page Nav -->
-      </ul>
-    </aside>
-  </Teleport>
+                <!--  -->
+                <SideBarLinkVue path="/profile">
+                    <template v-slot:icon
+                        ><i class="bi bi-person"></i
+                    ></template>
+                    Your Profile
+                </SideBarLinkVue>
+                <!-- End Profile Page Nav -->
 
-  <!-- End Sidebar-->
+                <SideBarLinkVue path="/product">
+                    <template v-slot:icon
+                        ><i class="bi bi-bag-heart-fill"></i
+                    ></template>
+                    Products
+                </SideBarLinkVue>
+                <!-- End Products Page Nav -->
+
+                <SideBarLinkVue path="" @click="logOut">
+                    <template v-slot:icon
+                        ><i class="bi bi-box-arrow-right"></i></template>
+                    Logout
+                </SideBarLinkVue>
+            </ul>
+        </aside>
+    </Teleport>
+
+    <!-- End Sidebar-->
 </template>
 
 <script>
 import useLayoutStore from "@/store/layoutStore";
+import SideBarLinkVue from "./ForDashBoard/SideBarLink.vue";
 export default {
-  name: "SideBar",
-  data() {
-    return {
-      layoutStore: useLayoutStore(),
-    };
-  },
-
-  computed: {
-    style() {
-      return {
-        left: this.layoutStore.getShowSideBar ? "0" : "-300px",
-      };
+    name: "SideBar",
+    data() {
+        return {
+            layoutStore: useLayoutStore(),
+        };
     },
-  },
+
+    components: {
+        SideBarLinkVue,
+    },
+
+    computed: {
+        style() {
+            return {
+                left: this.layoutStore.getShowSideBar ? "0" : "-300px",
+            };
+        },
+    },
+
+    methods: {
+        logOut () {
+            localStorage.clear();
+            this.$router.push({ name: "Login" })
+        }
+    }
 };
 </script>
 

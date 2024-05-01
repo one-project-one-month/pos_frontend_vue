@@ -34,22 +34,17 @@ export default {
             this.prepareFormData(formData);
 
             axios.post(`${apiPrefix}/register`, formData).then(res => {
-                console.log(res.data.data);
                 localStorage.setItem("token", res.data.data.token);
                 userStore.setUser(res.data.data.user);
-                console.log(userStore.getUser);
                 this.$router.push({ name : "deshboard" })
             }).catch(err => {
-                console.log(err.response.data.errors);
                 const errors = err.response.data.errors;
                 let alertMessage = "";
 
                 for(const key in errors) {
                     alertMessage += `${errors[key][0]}\n`;
                 }
-
                 alert(alertMessage);
-
             })
             
 
@@ -59,7 +54,7 @@ export default {
             formData.append("name", this.user.name);
             formData.append("email", this.user.email);
             formData.append("phone", this.user.phone);
-            formData.append("address", this.user.password);
+            formData.append("address", this.user.address);
             formData.append("password", this.user.password);
             formData.append("password_confirmation", this.user.password_confirmation);
         }
@@ -67,7 +62,7 @@ export default {
 
     computed: {
         overAllValidated () {
-            console.log(this.validations);
+            
             return (
                 this.validations.name && this.validations.email &&
                 this.validations.phone && this.validations.address &&
