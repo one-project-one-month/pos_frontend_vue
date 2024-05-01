@@ -3,38 +3,27 @@
         <div class="mainLoader"></div>
     </div>
     <template v-else>
+        <div class="buttonContainer">
+            <button @click="openModel" class="btn btn-success">Create New Product</button>
+        </div>
         <div class="cardContainer">
-            <div
+            <ProductCard
                 v-for="item in products"
                 :key="item.ProductId"
-                class="card"
-                style="width: 18rem"
-            >
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.ProductName }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">
-                        {{
-                            categories.find(
-                                (catego) =>
-                                    catego.ProductCategoryId ===
-                                    item.ProductCategoryId
-                            ).ProductCategoryName
-                        }}
-                    </h6>
-                    <p class="card-text">
-                        Price :
-                        <span class="fw-bold">{{ item.Price }}</span> MMK
-                    </p>
-                    <p class="card-text">
-                        Product Code :
-                        <span class="fw-bold">{{ item.ProductCode }}</span>
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div>
+                :item="item"
+                :category="findCategoryForEachProduct(item.ProductCategoryId)"
+                @delete-product="deleteProduct"
+                @openEditModel="openEditModel"
+            ></ProductCard>
         </div>
     </template>
+    <Transition>
+        <template>
+            <Model v-if="showModel">
+                <ProductForm :oldProduct="productToBeUpdate" :method="modelMethod" :categories="categories"></ProductForm>
+            </Model>
+        </template>
+    </Transition>
 </template>
 
 <script src="./ProductIndex.js"></script>
@@ -46,6 +35,15 @@
     display: grid;
     place-items: center;
     padding: 200px 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 /* HTML: <div class="loader"></div> */

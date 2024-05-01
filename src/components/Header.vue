@@ -336,4 +336,8 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="css" scoped>
+    #header {
+        z-index: 200;
+    }
+</style>
