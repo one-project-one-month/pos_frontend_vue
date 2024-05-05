@@ -3,6 +3,8 @@ import Login from "../views/AuthPage/Login.vue";
 import Register from "../views/AuthPage/Register.vue";
 import Empty from "../components/Empty.vue";
 import Deshboard from "../views/Deshboard.vue";
+import useUserStore from "../store/userStore";
+import useSaleInvoiceStore from "@/store/saleInvoiceStore";
 
 const routes = [
     {
@@ -66,6 +68,46 @@ const routes = [
             SideBar: () => import("../components/SideBar.vue"),
             Footer: () => import("../components/Empty.vue")
         },
+    },
+    {
+        path: "/category",
+        name: "Category",
+        components: {
+            default: () => import("../views/CategoryPages/CategoryTable.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
+        },
+    },
+    {
+        path: "/cart",
+        name: "Cart",
+        components: {
+            default: () => import("../views/CartPage/CartPage.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
+        },
+    }, 
+
+    {
+        path: "/current-sale-invoice",
+        name: "current-sale-invoice",
+        components: {
+            default: () => import("../views/SaleInvoice/CurrentSaleInvoice.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
+        },
+        beforeEnter(to, from, next) {
+            const saleInvoiceStore = useSaleInvoiceStore();
+
+            if(!!!saleInvoiceStore.getCurrentSaleInvoice.VoucherNo) {
+                next({name : 'Cart'})
+            } else {
+                next();
+            }
+        }
     }
 
 
@@ -75,6 +117,8 @@ let checkAuthentication = () => {
     let isLoggedIn = localStorage.getItem("token");
     console.log(isLoggedIn);
     if (isLoggedIn !== null && isLoggedIn !== "undefined" && isLoggedIn !== undefined) {
+        const userStore = useUserStore();
+        userStore.setUser(JSON.parse(localStorage.getItem("user")));
         return true;
     } else {
         return false;

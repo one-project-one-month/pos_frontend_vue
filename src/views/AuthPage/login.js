@@ -33,9 +33,10 @@ export default {
                     },
                 })
                 .then((response) => {
-                    console.log(response);
-                    localStorage.setItem("token", response.data.token);
-                    userStore.setUser(response.data.user);
+                    console.log(response.data.data.token);
+                    localStorage.setItem("token", response.data.data.token);
+                    localStorage.setItem("user", JSON.stringify(response.data.data.user));
+                    // userStore.setUser(response.data.data.user);
                     this.$router.push({ name: "deshboard" });
                 })
                 .catch((err) => {

@@ -5,6 +5,7 @@ import ProductCard from "../../components/ForProductPage/ProductCard.vue";
 import Model from "../../components/Model";
 import useLayoutStore from "@/store/layoutStore";
 import ProductForm from "../../components/ForProductPage/ProductForm.vue";
+import useCartStore from "@/store/cartStore";
 
 export default {
     name: "ProductIndex",
@@ -17,6 +18,7 @@ export default {
 
     data() {
         return {
+            cartStore : useCartStore(),
             products: [],
             categories: [],
             loading: {
@@ -35,16 +37,16 @@ export default {
 
     methods: {
         async fetchData() {
-            const token = localStorage.getItem("token");
             this.loading.main = true;
             this.loading.error = false;
             await axios
                 .get(`${apiPrefix}/v1/product`, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 })
                 .then((res) => {
+                    console.log('here');
                     const productStore = useProductStore();
                     productStore.setProducts(res.data.data);
                     this.products = productStore.getAllProducts;
@@ -59,12 +61,12 @@ export default {
             await axios
                 .get(`${apiPrefix}/v1/product-categories`, {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 })
                 .then((res) => {
                     this.categories = res.data.data;
-                    console.log(this.categories[0]);
+                    console.log(this.categories);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -107,5 +109,9 @@ export default {
             const layoutStore = useLayoutStore();
             return layoutStore.getShowModel;
         },
+
+        totalProductsInCart () {
+            return this.cartStore.getAllProducts.length;
+        }
     },
 };

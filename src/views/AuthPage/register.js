@@ -34,7 +34,9 @@ export default {
             this.prepareFormData(formData);
 
             axios.post(`${apiPrefix}/register`, formData).then(res => {
+                console.log(res.data.data.user);
                 localStorage.setItem("token", res.data.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data.data.user));
                 userStore.setUser(res.data.data.user);
                 this.$router.push({ name : "deshboard" })
             }).catch(err => {

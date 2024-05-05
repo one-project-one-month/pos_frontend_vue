@@ -23,11 +23,27 @@
                     ></template>
                     Products
                 </SideBarLinkVue>
+
+                <SideBarLinkVue path="/category">
+                    <template v-slot:icon
+                        ><i class="bi bi-tag-fill"></i
+                    ></template>
+                    Categories
+                </SideBarLinkVue>
+
+                <!-- End Products Page Nav -->
+                <SideBarLinkVue path="/staff">
+                    <template v-slot:icon
+                        ><i class="bi bi-person-lines-fill"></i
+                    ></template>
+                    Staffs
+                </SideBarLinkVue>
                 <!-- End Products Page Nav -->
 
                 <SideBarLinkVue path="" @click="logOut">
                     <template v-slot:icon
-                        ><i class="bi bi-box-arrow-right"></i></template>
+                        ><i class="bi bi-box-arrow-right"></i
+                    ></template>
                     Logout
                 </SideBarLinkVue>
             </ul>
@@ -61,11 +77,11 @@ export default {
     },
 
     methods: {
-        logOut () {
+        logOut() {
             localStorage.clear();
-            this.$router.push({ name: "Login" })
-        }
-    }
+            this.$router.push({ name: "Login" });
+        },
+    },
 };
 </script>
 

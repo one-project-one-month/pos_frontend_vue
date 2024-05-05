@@ -3,6 +3,7 @@
         <div class="modelBg" @click.stop="closeModel">
         <div class="modelContent" @click.stop>
             <slot></slot>
+            <component :is="currentComponent"></component>
         </div>
         </div>
     </Teleport>
@@ -10,14 +11,41 @@
 
 <script>
 import useLayoutStore from '@/store/layoutStore';
+import Empty from './Empty.vue';
+import CustomerCreateForm from './ForCartPage/CustomerCreateForm.vue';
+import StaffCreateForm from './ForCartPage/StaffCreateForm.vue';
 export default {
     name: "Model",
+
+    components: {
+        Empty, 
+        CustomerCreateForm,
+        StaffCreateForm
+    },
+
+    props: {
+        propComponent: {
+            type: String,
+            default: "Empty"
+        },
+    },
+
+    data () {
+        return {
+            currentComponent: this.propComponent
+        }
+    },
 
     methods: {
         closeModel () {
             const layoutStore = useLayoutStore();
             layoutStore.controlModel(false);    
         }
+    }, 
+
+    mounted () {
+        const layoutStore = useLayoutStore();
+        layoutStore.close();
     }
 };
 </script>
