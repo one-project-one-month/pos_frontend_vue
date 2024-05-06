@@ -3,15 +3,21 @@
         <div class="mainLoader"></div>
     </div>
     <template v-else>
-        <div class="buttonContainer">
-            <button @click="openModel" class="btn btn-success">Create New Product</button>
+        <div class="cartCreateContainer">
+            <div class="cartContainer">
+                <button @click="() => { $router.push('/cart'); }" class="btn btn-primary"> Cart ({{ totalProductsInCart }})</button>
+            </div>
+            <div class="buttonContainer">
+                <button @click="openModel" class="btn btn-success">
+                    Create New Product
+                </button>
+            </div>
         </div>
         <div class="cardContainer">
             <ProductCard
                 v-for="item in products"
                 :key="item.ProductId"
                 :item="item"
-                :category="findCategoryForEachProduct(item.ProductCategoryId)"
                 @delete-product="deleteProduct"
                 @openEditModel="openEditModel"
             ></ProductCard>
@@ -20,7 +26,11 @@
     <Transition>
         <template>
             <Model v-if="showModel">
-                <ProductForm :oldProduct="productToBeUpdate" :method="modelMethod" :categories="categories"></ProductForm>
+                <ProductForm
+                    :oldProduct="productToBeUpdate"
+                    :method="modelMethod"
+                    :categories="categories"
+                ></ProductForm>
             </Model>
         </template>
     </Transition>
@@ -37,14 +47,16 @@
     padding: 200px 10px;
 }
 
-.buttonContainer {
+.cartCreateContainer {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 20px;
+    justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    align-items: center;
+    padding: 0px 20px;
+    margin: 30px auto;
 }
+
+
 
 /* HTML: <div class="loader"></div> */
 .mainLoader {

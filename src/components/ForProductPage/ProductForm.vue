@@ -7,7 +7,7 @@
                 type="text"
                 class="form-control w-100"
                 placeholder="Product name.."
-                v-model="newProduct.productName"
+                v-model="newProduct.product_name"
             />
         </div>
         <hr class="mx-3" />
@@ -57,7 +57,11 @@
         </div>
     </form>
 
-    <form v-if="method === 'update'" action="" @submit.prevent="funcUpdateProduct">
+    <form
+        v-if="method === 'update'"
+        action=""
+        @submit.prevent="funcUpdateProduct"
+    >
         <h4>Update Your Product</h4>
         <div class="input-group">
             <label for="">Name</label>
@@ -74,14 +78,9 @@
             Categories
             <div class="select-wrapper w-100">
                 <select
-                    name=""
-                    id=""
+                    v-model="updateProductCategoryId"
                     class="form-control w-100"
-                    v-model="updateProduct.ProductCategoryId"
                 >
-                    <option value="" selected disabled>
-                        Select Your Category
-                    </option>
                     <option
                         v-for="item in categories"
                         :key="item.ProductCategoryId"
@@ -128,26 +127,35 @@ export default {
             default: [],
         },
 
-        method : {
-            type : String, 
-            default : "store"
-        }, 
+        method: {
+            type: String,
+            default: "store",
+        },
 
-        oldProduct : {
-            type : Object, 
-            default : {}
-        }
+        oldProduct: {
+            type: Object,
+            default: {},
+        },
     },
 
     data() {
         return {
             newProduct: {
-                productName: "",
-                price: "",
+                product_name: null,
+                price: null,
                 ProductCategoryId: "",
             },
 
-            updateProduct : {},
+            updateProduct: {
+                ProductName: "", 
+                Price : "", 
+                ProductCategory : {
+                    ProductCategoryId : "", 
+                    ProductCategoryCode : "", 
+                    ProductCategoryName : ""
+                }
+            },
+            updateProductCategoryId : null,
             loading: false,
         };
     },
@@ -157,7 +165,7 @@ export default {
             this.loading = true;
             const formData = new FormData();
 
-            formData.append("productName", this.newProduct.productName);
+            formData.append("product_name", this.newProduct.product_name);
             formData.append("price", this.newProduct.price);
             formData.append(
                 "ProductCategoryId",
@@ -167,11 +175,13 @@ export default {
             axios
                 .post(`${apiPrefix}/v1/product`, this.newProduct, {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
                     },
                 })
                 .then((response) => {
-                    console.log(response.data.data)
+                    console.log(response.data.data);
                     window.location.reload();
                 })
                 .catch((err) => {
@@ -182,35 +192,57 @@ export default {
                 });
         },
 
-        funcUpdateProduct () {
+        funcUpdateProduct() {
             this.loading = true;
             const formData = new FormData();
-            formData.append("productName", this.updateProduct.ProductName);
+            formData.append("product_name", this.updateProduct.ProductName);
             formData.append("price", this.updateProduct.Price);
-            formData.append("ProductCategoryId", this.updateProduct.ProductCategoryId);
-            formData.append("productCode", this.updateProduct.ProductCode);
-            axios.patch(`${apiPrefix}/v1/product/${this.updateProduct.ProductId}`, formData, {
-                headers : {
-                    Authorization : `Bearer ${localStorage.getItem("token")}`, 
-                    "Content-Type" : "application/json", 
-                    Accept : "application/json"
-                }
-            }).then(res => {
-                console.log(res);
-                window.location.reload();
-            }).catch(err => {
-                console.log(err);
-                alert("ERR" + err.message)
-            }).finally(() => {
-                this.loading = false;
-            })
-        }
+            formData.append(
+                "ProductCategoryId",
+                this.updateProductCategoryId
+            );
+            formData.append("product_code", this.updateProduct.ProductCode);
+            axios
+                .patch(
+                    `${apiPrefix}/v1/product/${this.updateProduct.ProductId}`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
+                    }
+                )
+                .then((res) => {
+                    console.log(res);
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert("ERR" + err.message);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
     },
 
-    mounted () {
-        console.log(this.oldProduct);
-        this.updateProduct = {...this.oldProduct};
-    }
+    mounted() {
+        if(this.method === 'update') {
+
+            console.log(this.oldProduct);
+            this.updateProduct = { ...this.oldProduct };
+            this.updateProductCategoryId = this.updateProduct.ProductCategory.ProductCategoryId;
+    
+            console.log(
+                "updateProduct",
+                this.updateProduct.ProductCategory.ProductCategoryId
+            );
+        }
+    },
 };
 </script>
 

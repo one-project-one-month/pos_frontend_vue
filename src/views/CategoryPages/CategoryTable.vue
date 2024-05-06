@@ -65,6 +65,7 @@
 
 <script>
 import axios from "axios";
+import apiPrefix from '@/apiPrefix';
 
 export default {
   name: "CategoryTable",
@@ -76,10 +77,16 @@ export default {
   methods: {
     productCategoryGetData() {
       axios
-        .get("http://127.0.0.1:8000/api/product-categories")
+        .get(`${apiPrefix}/v1/product-categories`, {
+          headers :{
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        })
         .then((response) => {
           this.productCategory = response.data.data;
           console.log(this.productCategory);
+        }).catch(err => {
+          console.log(err)
         });
     },
   },
