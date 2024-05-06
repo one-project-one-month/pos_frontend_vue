@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Latest Sale Invoice</h1>
+        <h1>Sale Invoice</h1>
 
         <div v-if="saleInvoice === null">Loading....</div>
 
@@ -103,7 +103,7 @@
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div v-if="!!saleInvoice.staff">
                 <div>
                     <h3>Assigned Staff</h3>
                     <p>
@@ -145,7 +145,7 @@ export default {
 
     methods: {
         fetchInvoice() {
-            this.saleInvoice = localStorage.getItem("currentSaleInvoice");
+            this.saleInvoice = localStorage.getItem("showSaleInvoice");
             this.saleInvoice = JSON.parse(this.saleInvoice) || null;
         },
 

@@ -123,7 +123,11 @@ export default {
     staffDelete(id) {
       let postIdToDelete = id;
       axios
-        .delete(`${apiPrefix}/v1/staff/${postIdToDelete}`)
+        .delete(`${apiPrefix}/v1/staff/${postIdToDelete}`, {
+          headers : {
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+          }
+        })
         .then((response) => {
           this.getStaff();
         })

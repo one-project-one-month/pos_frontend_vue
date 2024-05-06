@@ -55,7 +55,9 @@ export default {
                 .catch((err) => {
                     console.log(err);
                     this.loading.error = true;
-                    return;
+                    alert(`Your session has expired, please relogin`);
+                    localStorage.removeItem("token");
+                    window.location.reload();
                 });
 
             await axios
@@ -71,7 +73,9 @@ export default {
                 .catch((err) => {
                     console.log(err);
                     this.loading.error = true;
-                    return;
+                    alert(`Your session has expired, please relogin`);
+                    localStorage.removeItem("token");
+                    window.location.reload();
                 });
 
             this.loading.main = false;

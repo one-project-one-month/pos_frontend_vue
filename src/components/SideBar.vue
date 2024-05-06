@@ -40,6 +40,14 @@
                 </SideBarLinkVue>
                 <!-- End Products Page Nav -->
 
+                <!-- End Products Page Nav -->
+                <SideBarLinkVue path="/current-sale-invoice">
+                    <template v-slot:icon
+                        ><i class="bi bi-newspaper"></i></template>
+                    Latest Sale Invoice
+                </SideBarLinkVue>
+                <!-- End Products Page Nav -->
+
                 <SideBarLinkVue path="" @click="logOut">
                     <template v-slot:icon
                         ><i class="bi bi-box-arrow-right"></i

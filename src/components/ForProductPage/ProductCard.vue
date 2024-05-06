@@ -27,7 +27,7 @@
             <button class="btn btn-success" @click="addToCart">
                 Add To Cart
             </button>
-            <div class="btn btn-dark">
+            <div class="btn btn-dark" @click="$router.push('/cart')">
                 <i class="bi bi-cart me-2"></i>
                 <span>{{ quantityInCart }}</span>
             </div>

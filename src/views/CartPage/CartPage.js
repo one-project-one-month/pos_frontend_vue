@@ -3,7 +3,7 @@ import apiPrefix from "@/apiPrefix";
 import useLayoutStore from "@/store/layoutStore";
 import Model from "@/components/Model.vue";
 import useCartStore from "@/store/cartStore";
-import useSaleInvoiceStore from "../../store/saleInvoiceStore.js"
+
 
 export default {
     name: "CartPage",
@@ -14,8 +14,7 @@ export default {
 
     data () {
         return {
-            cartStore : useCartStore(),
-            saleInvoiceStore : useSaleInvoiceStore(),
+            cartStore : useCartStore(), 
 
             modelComponent : "",
             allCustomersLoading : false, 
@@ -159,11 +158,10 @@ export default {
                 }
             }).then(res=> {
                 // console.log(res.data);
-                this.saleInvoiceStore.setCurrentSaleInvoice({
+                localStorage.setItem("currentSaleInvoice", JSON.stringify({
                     ...res.data.data, 
                     items : this.allProductsWithAmount
-                });
-                console.log(this.saleInvoiceStore.getCurrentSaleInvoice);
+                }));
                 this.cartStore.resetCart();
                 this.paymentMethod = "";
                 this.receivedAmount = "";

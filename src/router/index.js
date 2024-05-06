@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/AuthPage/Login.vue";
 import Register from "../views/AuthPage/Register.vue";
-import Empty from "../components/Empty.vue";
 import Deshboard from "../views/Deshboard.vue";
 import useUserStore from "../store/userStore";
-import useSaleInvoiceStore from "@/store/saleInvoiceStore";
 
 const routes = [
     {
@@ -100,13 +98,42 @@ const routes = [
             Footer: () => import("../components/Empty.vue")
         },
         beforeEnter(to, from, next) {
-            const saleInvoiceStore = useSaleInvoiceStore();
-
-            if(!!!saleInvoiceStore.getCurrentSaleInvoice.VoucherNo) {
+            const saleInvoice = JSON.parse(localStorage.getItem("currentSaleInvoice")) || null;
+           
+            if(!!!saleInvoice || saleInvoice == 'undefined' || saleInvoice == undefined) {
                 next({name : 'Cart'})
             } else {
                 next();
             }
+        }
+    }, 
+    {
+        path: "/show-sale-invoice",
+        name: "show-sale-invoice",
+        components: {
+            default: () => import("../views/SaleInvoice/ShowSaleInvoice.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
+        },
+        beforeEnter(to, from, next) {
+            const saleInvoice = JSON.parse(localStorage.getItem("showSaleInvoice")) || null;
+           
+            if(!!!saleInvoice || saleInvoice == 'undefined' || saleInvoice == undefined) {
+                next({name : 'Cart'})
+            } else {
+                next();
+            }
+        }
+    }, 
+
+    {
+        path : "/staff/detail/:staffId", 
+        components : {
+            default: () => import("../views/StaffPages/StaffDetail.vue"),
+            Header: () => import("../components/Header.vue"),
+            SideBar: () => import("../components/SideBar.vue"),
+            Footer: () => import("../components/Empty.vue")
         }
     }
 
